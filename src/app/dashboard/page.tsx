@@ -80,7 +80,7 @@ export default function DashboardPage() {
   ].filter((link) => link.roles.includes(user.role));
 
   return (
-    <div className="max-w-5xl space-y-6">
+    <div className="w-full space-y-6">
       {/* Role Profile Header */}
       <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
