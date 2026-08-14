@@ -1,5 +1,3 @@
-import { StringValidation } from "zod/v3";
-
 export type Role = "Admin" | "Teacher" | "Student";
 export type AssignmentStatus = "Draft" | "Published"
 export type SubmissionStatus = "Submitted" | "Late" | "Graded";

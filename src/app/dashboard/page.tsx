@@ -77,6 +77,12 @@ export default function DashboardPage() {
       description: "Enroll students into their respective classes",
       roles: ["Admin"],
     },
+    {
+      href: "/dashboard/users",
+      title: "Users Management",
+      description: "Create and manage users (teachers/students)",
+      roles: ["Admin"],
+    },
   ].filter((link) => link.roles.includes(user.role));
 
   return (

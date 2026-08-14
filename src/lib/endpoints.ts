@@ -1,5 +1,6 @@
 export const endpoints = {
     login: "/auth/login",
+    register: "/auth/register",
 
     schoolClasses: "/schoolclass",
     schoolClassesById: (classId: string) => `/schoolclass/${classId}`,

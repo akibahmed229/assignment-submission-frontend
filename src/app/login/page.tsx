@@ -5,7 +5,6 @@ import { useAuth } from "@/lib/auth-context";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ApiError } from "@/lib/api";
 
 const loginSchema = z.object({
   email: z.string().email("Enter a valid email!"),
