@@ -17,6 +17,7 @@ const createUserSchema = z.object({
   role: z.enum(["Admin", "Teacher", "Student"], {
     message: "Please select a valid role",
   }),
+  isActive: z.boolean()
 });
 
 type CreateUserForm = z.infer<typeof createUserSchema>;
@@ -41,6 +42,7 @@ export default function UsersPage() {
       email: "",
       password: "",
       role: "Student",
+      isActive: true
     },
   });
 
@@ -82,6 +84,12 @@ export default function UsersPage() {
       );
     }
   }
+
+  async function onToggleStatus(u: UserSummary) {
+    await api.patch(endpoints.userStatus(u.id), { isActive: !u.isActive });
+    fetchUsers();
+  }
+
 
   // Guard: Only Admin allowed
   if (user?.role !== "Admin") {
@@ -261,6 +269,16 @@ export default function UsersPage() {
                         >
                           {u.role}
                         </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <span className={`inline-block px-2 py-0.5 text-[11px] rounded-full ${u.isActive ? "bg-green-50 text-green-700" : "bg-gray-100 text-gray-500"}`}>
+                          {u.isActive ? "Active" : "Inactive"}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <button onClick={() => onToggleStatus(u)} className="text-xs text-blue-600 hover:underline">
+                          {u.isActive ? "Deactivate" : "Reactivate"}
+                        </button>
                       </td>
                     </tr>
                   ))}

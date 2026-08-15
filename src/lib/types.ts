@@ -15,6 +15,7 @@ export interface UserSummary {
     fullName: string;
     email: string;
     role: Role;
+    isActive: boolean;
 }
 
 export interface SchoolClass {
@@ -71,4 +72,16 @@ export interface Submission {
     marks: number | null;
     feedback: string | null;
     gradedAt: string | null;
+}
+
+export interface SubmissionOverview {
+    id: string;
+    assignmentId: string;
+    assignmentTitle: string;
+    studentId: string;
+    studentName: string;
+    submittedAt: string;
+    status: SubmissionStatus;
+    marks: number | null;
+    maxMarks: number;
 }

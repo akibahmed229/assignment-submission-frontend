@@ -25,6 +25,9 @@ export const endpoints = {
     submissionUpdate: (id: string) => `/submissions/${id}`,
     submissionGrade: (id: string) => `/submissions/${id}/grade`,
     submissionsMine: "/submissions/mine",
+    submissionsAll: "/submissions",
+    submissionStatus: (id: string) => `/submissions/${id}/status`,
 
+    userStatus: (id: string) => `/users/${id}/status`,
     users: (role?: string) => (role ? `/users?role=${role}` : "/users"),
 } as const;

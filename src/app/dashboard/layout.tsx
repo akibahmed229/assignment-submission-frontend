@@ -22,6 +22,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     { href: "/dashboard/subjects", label: "Subjects", roles: ["Admin"] },
     { href: "/dashboard/teacher-assignments", label: "Teacher Assignments", roles: ["Admin"] },
     { href: "/dashboard/enrollments", label: "Enrollments", roles: ["Admin"] },
+    { href: "/dashboard/submissions", label: "All Submissions", roles: ["Admin"] },
   ].filter(link => link.roles.includes(user.role));
 
   return (
