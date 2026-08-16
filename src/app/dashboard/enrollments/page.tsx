@@ -70,7 +70,7 @@ export default function EnrollmentsPage() {
   }
 
   return (
-    <RequiredRole role={["Admin"]}>
+    <RequiredRole role={["Admin"]} msg="enrollments">
       <div className="space-y-6">
         <h1 className="text-2xl font-semibold">Enrollments</h1>
 

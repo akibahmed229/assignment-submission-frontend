@@ -8,6 +8,7 @@ import { useAuth } from "@/lib/auth-context";
 import { Subject } from "@/lib/types";
 import { api, ApiError } from "@/lib/api";
 import { endpoints } from "@/lib/endpoints";
+import { RequiredRole } from "@/components/require-role";
 
 const schema = z.object({
   name: z.string().min(1, "Name is required").max(150),
@@ -55,53 +56,53 @@ export default function SubjectsPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-semibold">Subjects</h1>
+    <RequiredRole role={["Admin"]} msg="subjects">
+      <div className="space-y-6">
+        <h1 className="text-2xl font-semibold">Subjects</h1>
 
-      {user?.role === "Admin" && (
-        <form onSubmit={handleSubmit(onSubmit)} className="flex gap-2 items-start max-w-lg flex-wrap">
-          <div className="flex-1 min-w-40">
-            <input {...register("name")} placeholder="e.g. Mathematics" className="w-full border rounded px-3 py-2" />
-            {errors.name && <p className="text-red-600 text-sm mt-1">{errors.name.message}</p>}
-          </div>
-          <div className="w-32">
-            <input {...register("code")} placeholder="MATH101" className="w-full border rounded px-3 py-2" />
-          </div>
-          <button disabled={isSubmitting} className="bg-blue-600 text-white rounded px-4 py-2 disabled:opacity-50 hover:bg-blue-700">
-            Add
-          </button>
-        </form>
-      )
-      }
-      {error && <p className="text-red-600 text-sm">{error}</p>}
+        {user?.role === "Admin" && (
+          <form onSubmit={handleSubmit(onSubmit)} className="flex gap-2 items-start max-w-lg flex-wrap">
+            <div className="flex-1 min-w-40">
+              <input {...register("name")} placeholder="e.g. Mathematics" className="w-full border rounded px-3 py-2" />
+              {errors.name && <p className="text-red-600 text-sm mt-1">{errors.name.message}</p>}
+            </div>
+            <div className="w-32">
+              <input {...register("code")} placeholder="MATH101" className="w-full border rounded px-3 py-2" />
+            </div>
+            <button disabled={isSubmitting} className="bg-blue-600 text-white rounded px-4 py-2 disabled:opacity-50 hover:bg-blue-700">
+              Add
+            </button>
+          </form>
+        )
+        }
+        {error && <p className="text-red-600 text-sm">{error}</p>}
 
-      <table className="w-full text-sm">
-        <thead>
-          <tr className="text-left border-b">
-            <th className="py-2">Name</th>
-            <th className="py-2">Code</th>
-            {user?.role === "Admin" && <th className="py-2"></th>}
-          </tr>
-        </thead>
-
-        <tbody>
-          {subjects.map(s => (
-            <tr key={s.id} className="border-b">
-              <td className="py-2">{s.name}</td>
-              <td className="py-2 text-gray-500">{s.code ?? "--"}</td>
-              {user?.role === "Admin" && (
-                <td className="py-2">
-                  <button onClick={() => onDelete(s.id)} className="bg-red-100 rounded text-red-600 px-2 py-1 hover:underline text-xs">
-                    Delete
-                  </button>
-                </td>
-              )}
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="text-left border-b">
+              <th className="py-2">Name</th>
+              <th className="py-2">Code</th>
+              {user?.role === "Admin" && <th className="py-2"></th>}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div >
+          </thead>
 
-
+          <tbody>
+            {subjects.map(s => (
+              <tr key={s.id} className="border-b">
+                <td className="py-2">{s.name}</td>
+                <td className="py-2 text-gray-500">{s.code ?? "--"}</td>
+                {user?.role === "Admin" && (
+                  <td className="py-2">
+                    <button onClick={() => onDelete(s.id)} className="bg-red-100 rounded text-red-600 px-2 py-1 hover:underline text-xs">
+                      Delete
+                    </button>
+                  </td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div >
+    </RequiredRole>
   )
 }

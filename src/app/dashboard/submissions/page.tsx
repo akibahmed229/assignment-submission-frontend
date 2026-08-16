@@ -59,7 +59,7 @@ export default function AllSubmissionsPage() {
     : submissions.filter((s) => s.status === statusFilter);
 
   return (
-    <RequiredRole role={["Admin", "Teacher"]}>
+    <RequiredRole role={["Admin", "Teacher"]} msg="submissions">
       <div className="space-y-6">
         <div className="flex items-center justify-between flex-wrap gap-2">
           <h1 className="text-2xl font-semibold">All Submissions</h1>

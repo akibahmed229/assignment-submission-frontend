@@ -69,7 +69,7 @@ export default function TeacherAssignmentsPage() {
   }
 
   return (
-    <RequiredRole role={["Admin"]}>
+    <RequiredRole role={["Admin"]} msg="teacher assignments">
       <div className="space-y-6">
         <h1 className="text-2xl font-semibold">Teacher Assignments</h1>
         <p className="text-sm text-gray-500">Assign a teacher to teach a subject for a class.</p>
