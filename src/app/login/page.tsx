@@ -5,6 +5,7 @@ import { useAuth } from "@/lib/auth-context";
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSearchParams } from "next/navigation";
 
 const loginSchema = z.object({
   email: z.string().email("Enter a valid email!"),
@@ -16,6 +17,9 @@ type LoginForm = z.infer<typeof loginSchema>;
 export default function LoginPage() {
   const { login } = useAuth();
   const [serverError, setServerError] = useState < string | null > (null);
+
+  const searchParams = useSearchParams();
+  const sessionExpired = searchParams.get("sessionExpired") === "1";
 
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm < LoginForm > ({
@@ -34,7 +38,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-green-50 px-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-green-50 px-4">
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1 className="flex justify-center items-center text-xl font-semibold mb-10">Sign in</h1>
 
@@ -63,6 +67,14 @@ export default function LoginPage() {
           Demo: admin@assignmentsystem.local / teacher@assignmentsystem.local / student@assignmentsystem.local
         </p>
       </form>
+
+      {
+        sessionExpired && (
+          <p className="text-amber-600 text-sm bg-amber-50 border border-amber-200 rounded px-3 py-2 mt-10">
+            Your session expired. Please log in again.
+          </p>
+        )
+      }
     </div >
   )
 }

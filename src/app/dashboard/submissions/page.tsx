@@ -6,7 +6,6 @@ import { api, ApiError } from "@/lib/api";
 import { endpoints } from "@/lib/endpoints";
 import { SubmissionOverview, SubmissionStatus } from "@/lib/types";
 import { RequiredRole } from "@/components/require-role";
-import { useAuth } from "@/lib/auth-context";
 
 // Graded is deliberately excluded here -- the backend's ChangeStatusAsync
 // rejects that transition on purpose (it requires marks, which only the
@@ -21,14 +20,11 @@ const STATUS_STYLES: Record<SubmissionStatus, string> = {
 };
 
 export default function AllSubmissionsPage() {
-  const { user } = useAuth();
-
   const [submissions, setSubmissions] = useState < SubmissionOverview[] > ([]);
   const [statusFilter, setStatusFilter] = useState < SubmissionStatus | "All" > ("All");
   const [error, setError] = useState < string | null > (null);
   const [savingId, setSavingId] = useState < string | null > (null);
 
-  console.log(submissions)
 
   async function load() {
     setError(null);
